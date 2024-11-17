@@ -5,15 +5,14 @@ import About from './components/About';
 import Services from './components/Services';
 import Contact from './components/Contact';
 import Navbar from './components/Navbar';
-"dependencies": {
-  "react": "^18.0.0",
-  "react-dom": "^18.0.0",
-  "react-router-dom": "^6.0.0"
-}
+
 function App() {
   return (
     <Router>
+      {/* Navigation bar component */}
       <Navbar />
+
+      {/* Routes for different pages */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
