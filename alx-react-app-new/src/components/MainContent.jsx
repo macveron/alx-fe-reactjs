@@ -1,11 +1,9 @@
-const MainContent = () => {
+function MainContent() {
     return (
-      <main style={{ padding: '20px', backgroundColor: '#f4f4f4', color: '#333' }}>
-        <h2>Main Content Area</h2>
-        <p>Here is some exciting content about cities around the world!</p>
-      </main>
+        <main style={{ padding: '20px', backgroundColor: '#f0f0f0', color: '#333', textAlign: 'center' }}>
+            <p>I love to visit New York, Paris, and Tokyo.</p>
+        </main>
     );
-  };
-  
-  export default MainContent;
-  
+}
+
+export default MainContent;
