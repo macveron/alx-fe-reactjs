@@ -27,4 +27,16 @@ const useRecipeStore = create((set) => ({
   setRecipes: (newRecipes) => set({ recipes: newRecipes }),
 }));
 
+  // Action to set the search term
+  setSearchTerm: (term) =>
+    set((state) => {
+      const lowerCaseTerm = term.toLowerCase();
+      return {
+        searchTerm: term,
+        filteredRecipes: state.recipes.filter((recipe) =>
+          recipe.title.toLowerCase().includes(lowerCaseTerm)
+        ),
+      };
+    }),
+
 export default useRecipeStore;
