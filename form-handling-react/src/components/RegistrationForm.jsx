@@ -6,6 +6,11 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [formErrors, setFormErrors] = useState({
+    username: '',
+    email: '',
+    password: ''
+  });
 
   // Handle input change
   const handleChange = (e) => {
@@ -15,17 +20,42 @@ const RegistrationForm = () => {
     if (name === 'password') setPassword(value);
   };
 
+  // Form validation logic
+  const validateForm = () => {
+    let errors = {};
+
+    if (!username) {
+      errors.username = 'Username is required';
+    }
+
+    if (!email) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = 'Email is invalid';
+    }
+
+    if (!password) {
+      errors.password = 'Password is required';
+    } else if (password.length < 6) {
+      errors.password = 'Password must be at least 6 characters long';
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0; // If no errors, return true
+  };
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Basic validation check
-    if (!username || !email || !password) {
-      setError('All fields are required');
-      return;
-    }
+    // Clear the general error
     setError('');
-    // Proceed with form submission logic, e.g., API call
-    console.log('Form submitted', { username, email, password });
+    
+    if (validateForm()) {
+      // If the form is valid, proceed with registration logic, e.g., API call
+      console.log('Form submitted:', { username, email, password });
+    } else {
+      setError('Please fill in all required fields correctly.');
+    }
   };
 
   return (
@@ -39,6 +69,7 @@ const RegistrationForm = () => {
           value={username}
           onChange={handleChange}
         />
+        {formErrors.username && <div style={{ color: 'red' }}>{formErrors.username}</div>}
       </div>
       <div>
         <label htmlFor="email">Email</label>
@@ -49,6 +80,7 @@ const RegistrationForm = () => {
           value={email}
           onChange={handleChange}
         />
+        {formErrors.email && <div style={{ color: 'red' }}>{formErrors.email}</div>}
       </div>
       <div>
         <label htmlFor="password">Password</label>
@@ -59,6 +91,7 @@ const RegistrationForm = () => {
           value={password}
           onChange={handleChange}
         />
+        {formErrors.password && <div style={{ color: 'red' }}>{formErrors.password}</div>}
       </div>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <button type="submit">Register</button>
