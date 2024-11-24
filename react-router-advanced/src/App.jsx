@@ -10,13 +10,8 @@ const App = () => {
       <div>
         <h1>My React App</h1>
         <Routes>
-          {/* Home Route */}
           <Route path="/" element={<Home />} />
-          
-          {/* Profile Routes */}
           <Route path="profile/*" element={<Profile />} />
-          
-          {/* Dynamic Blog Post Route */}
           <Route path="blog/:id" element={<BlogPost />} /> {/* This is the dynamic route */}
         </Routes>
       </div>
