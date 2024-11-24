@@ -57,7 +57,13 @@ const RegistrationForm = () => {
       setError('Please fill in all required fields correctly.');
     }
   };
-
+// Custom setErrors function to mimic Formik's behavior
+  const setErrors = (errors) => {
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      ...errors,
+    }));
+  };
   return (
     <form onSubmit={handleSubmit}>
       <div>
