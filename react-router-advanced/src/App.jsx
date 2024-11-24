@@ -1,8 +1,9 @@
+// src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Profile from './components/Profile';
-import BlogPost from './components/BlogPost'; // Import the component for individual blog post
-import Home from './components/Home'; // You can add a home component
+import BlogPost from './components/BlogPost'; // BlogPost component for individual blog posts
+import Home from './components/Home'; // Home component or any other page
 
 const App = () => {
   return (
@@ -10,9 +11,13 @@ const App = () => {
       <div>
         <h1>My React App</h1>
         <Routes>
+          {/* Main Route */}
           <Route path="/" element={<Home />} />
+          
+          {/* Profile Routes */}
           <Route path="profile/*" element={<Profile />} />
-          {/* Dynamic Route for Blog Post */}
+          
+          {/* Dynamic Blog Post Route */}
           <Route path="blog/:id" element={<BlogPost />} />
         </Routes>
       </div>
