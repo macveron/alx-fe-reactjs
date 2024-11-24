@@ -1,20 +1,20 @@
-import { useRecipeStore } from '../recipeStore';
+import React from 'react';
+import useRecipeStore from './recipeStore';
 
 const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
+  const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
 
   return (
     <div>
-      <h2>Recipes</h2>
-      {recipes.length === 0 ? (
-        <p>No recipes available. Add a recipe to get started!</p>
-      ) : (
-        recipes.map((recipe) => (
-          <div key={recipe.id}>
+      {filteredRecipes.length > 0 ? (
+        filteredRecipes.map((recipe) => (
+          <div key={recipe.id} style={{ marginBottom: '20px' }}>
             <h3>{recipe.title}</h3>
             <p>{recipe.description}</p>
           </div>
         ))
+      ) : (
+        <p>No recipes match your search.</p>
       )}
     </div>
   );
