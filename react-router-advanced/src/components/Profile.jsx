@@ -1,17 +1,28 @@
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
+import ProfileDetails from './ProfileDetails';
+import ProfileSettings from './ProfileSettings';
 
 const Profile = () => {
   return (
     <div>
-      <h2>User Profile</h2>
+      <h1>Profile</h1>
       <nav>
         <ul>
-          <li><Link to="details">Profile Details</Link></li>
-          <li><Link to="settings">Profile Settings</Link></li>
+          <li>
+            <Link to="details">Profile Details</Link>
+          </li>
+          <li>
+            <Link to="settings">Profile Settings</Link>
+          </li>
         </ul>
       </nav>
-      <Outlet /> {/* Nested routes will be rendered here */}
+
+      {/* Nested Routes */}
+      <Routes>
+        <Route path="details" element={<ProfileDetails />} />
+        <Route path="settings" element={<ProfileSettings />} />
+      </Routes>
     </div>
   );
 };
