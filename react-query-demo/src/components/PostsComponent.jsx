@@ -25,6 +25,9 @@ const PostsComponent = () => {
       // Keep previous data when refetching
       keepPreviousData: true,
 
+      // Set staleTime to 5 minutes (300000 ms)
+      staleTime: 300000, // Data is considered fresh for 5 minutes
+
       // Optionally, you can also set refetch intervals, such as every 30 seconds
       // refetchInterval: 30000, 
     }
