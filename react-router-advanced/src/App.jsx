@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Profile from './components/Profile';
-import BlogPost from './components/BlogPost'; // Make sure you have the BlogPost component
-import Home from './components/Home'; // Assuming you have a Home component
+import BlogPost from './components/BlogPost'; // Make sure BlogPost component is imported
 
 const App = () => {
   return (
@@ -10,9 +8,11 @@ const App = () => {
       <div>
         <h1>My React App</h1>
         <Routes>
+          {/* Home Route */}
           <Route path="/" element={<Home />} />
-          <Route path="profile/*" element={<Profile />} />
-          <Route path="blog/:id" element={<BlogPost />} /> {/* This is the dynamic route */}
+          
+          {/* Dynamic Blog Post Route */}
+          <Route path="/blog/:id" element={<BlogPost />} /> {/* Ensure this is written as "/blog/:id" */}
         </Routes>
       </div>
     </Router>
