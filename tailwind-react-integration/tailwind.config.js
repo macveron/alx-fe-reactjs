@@ -1,8 +1,13 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"], // Scans for your components
-  darkMode: "class", // Optional, enables dark mode
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"], // Old purge syntax
+  darkMode: "class", // Enable dark mode (optional)
   theme: {
-    extend: {}, // Use this to extend Tailwind's default styles
+    extend: {},
   },
-  plugins: [], // Add plugins here if needed
+  variants: {
+    extend: {
+      backgroundColor: ["active", "group-hover"], // Example custom variant
+    },
+  },
+  plugins: [],
 };
