@@ -1,7 +1,8 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"], // Scans for your components
+  darkMode: "class", // Optional, enables dark mode
   theme: {
-    extend: {},
+    extend: {}, // Use this to extend Tailwind's default styles
   },
-  plugins: [],
+  plugins: [], // Add plugins here if needed
 };
