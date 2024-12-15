@@ -10,12 +10,13 @@ const Search = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null); // Reset any previous errors
+    setError(null); 
 
     try {
       const response = await axios.get(`https://api.github.com/users/${username}`);
       setUserData(response.data);
     } catch (err) {
+      console.log('Error fetching data:', err);  
       setError("Looks like we can't find the user");
       setUserData(null);
     } finally {
