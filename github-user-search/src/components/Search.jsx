@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import fetchUserData from '../services/githubService';
 
 const Search = () => {
-  const [username, setUsername] = useState('');
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState(''); // Input state for GitHub username
+  const [userData, setUserData] = useState(null); // Holds fetched user data
+  const [loading, setLoading] = useState(false); // Indicates if the API call is in progress
+  const [error, setError] = useState(''); // Holds error message if any
 
   const handleSearch = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    setUserData(null);
+    e.preventDefault(); // Prevent page reload on form submission
+    setLoading(true); // Set loading state to true
+    setError(''); // Reset error state
+    setUserData(null); // Clear previous user data
 
     try {
-      const data = await fetchUserData(username);
-      setUserData(data);
+      const data = await fetchUserData(username); // Fetch data using API service
+      setUserData(data); // Store fetched data in state
     } catch (err) {
-      setError("Looks like we can't find the user.");
+      setError("Looks like we can't find the user."); // Set error message if user not found or API fails
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading state to false after the API call
     }
   };
 
@@ -37,16 +37,16 @@ const Search = () => {
           Search
         </button>
       </form>
-      {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      {loading && <p>Loading...</p>} {/* Loading message */}
+      {error && <p className="text-red-500">{error}</p>} {/* Error message */}
       {userData && (
         <div className="mt-4 border p-4 rounded shadow">
           <img
             src={userData.avatar_url}
-            alt={userData.name}
+            alt={userData.login} // Added login field for alt attribute
             className="w-20 h-20 rounded-full"
           />
-          <h3 className="text-lg font-bold">{userData.name}</h3>
+          <h3 className="text-lg font-bold">{userData.name || userData.login}</h3> {/* Fallback to login if name is null */}
           <a
             href={userData.html_url}
             target="_blank"
