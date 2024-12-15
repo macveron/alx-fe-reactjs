@@ -11,7 +11,7 @@ const Search = () => {
     e.preventDefault();
     setLoading(true);
     setError(null); // Reset any previous errors
-
+  const fetchUserData = async (username) => {
     try {
       // Fetch user data from GitHub API
       const response = await axios.get(`https://api.github.com/users/${username}`);
