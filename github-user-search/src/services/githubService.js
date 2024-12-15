@@ -1,5 +1,5 @@
 import axios from 'axios';
-const GITHUB_SEARCH_API_URL = 'https://api.github.com/search/users';
+const GITHUB_SEARCH_API_URL = "https://api.github.com/search/users?q";
 
 const fetchUserData = async ({ username, location, minRepos }) => {
   try {
