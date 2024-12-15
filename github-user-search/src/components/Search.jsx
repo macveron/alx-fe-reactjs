@@ -1,62 +1,69 @@
-import React, { useState } from 'react';
-import fetchUserData from '../services/githubService';
+import React, { useState } from "react";
+import fetchUserData from "../services/githubService";
 
 const Search = () => {
-  const [username, setUsername] = useState(''); // Input for username
-  const [userData, setUserData] = useState(null); // Holds user data
-  const [loading, setLoading] = useState(false); // Tracks loading state
-  const [error, setError] = useState(''); // Holds error message
+  const [username, setUsername] = useState("");
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSearch = async (e) => {
-    e.preventDefault(); // Prevent form submission default behavior
-    setLoading(true); // Indicate loading state
-    setError(''); // Clear any previous error messages
-    setUserData(null); // Clear previous user data
+    e.preventDefault(); // Prevent page reload on form submission
+    setError(""); // Clear previous errors
+    setUserData(null); // Reset user data
+    setLoading(true); // Show loading state
 
     try {
-      const data = await fetchUserData(username); // Call GitHub API service
-      setUserData(data); // Store data if successful
+      const data = await fetchUserData(username); // Call the API service
+      setUserData(data); // Save user data to state
     } catch (err) {
-      setError("Looks like we can't find the user."); // Set error message
+      setError("Looks like we can't find the user"); // Handle errors
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false); // End loading state
     }
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <form onSubmit={handleSearch} className="flex flex-col space-y-4">
+    <div className="max-w-md mx-auto p-4">
+      <form onSubmit={handleSearch} className="mb-4">
         <input
           type="text"
           placeholder="Enter GitHub username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 rounded"
+          className="w-full p-2 border border-gray-300 rounded"
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="mt-2 w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           Search
         </button>
       </form>
-      {loading && <p>Loading...</p>} {/* Show while loading */}
-      {error && <p className="text-red-500">{error}</p>} {/* Display error */}
+
+      {/* Loading State */}
+      {loading && <p>Loading...</p>}
+
+      {/* Error State */}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {/* User Data Display */}
       {userData && (
-        <div className="mt-4 border p-4 rounded shadow">
+        <div className="border p-4 rounded shadow">
           <img
             src={userData.avatar_url}
             alt={userData.login}
-            className="w-20 h-20 rounded-full"
+            className="w-16 h-16 rounded-full mx-auto"
           />
-          <h3 className="text-lg font-bold">{userData.name || userData.login}</h3>
+          <h2 className="text-center font-bold text-xl mt-2">{userData.name || "No Name Provided"}</h2>
+          <p className="text-center text-gray-600">@{userData.login}</p>
           <a
             href={userData.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600"
+            className="block mt-2 text-center text-blue-500 hover:underline"
           >
-            View Profile
+            View GitHub Profile
           </a>
         </div>
       )}
