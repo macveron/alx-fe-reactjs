@@ -10,16 +10,18 @@ const Search = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null); 
+    setError(null); // Reset any previous errors
 
     try {
+      // Fetch user data from GitHub API
       const response = await axios.get(`https://api.github.com/users/${username}`);
       setUserData(response.data);
     } catch (err) {
-      console.log('Error fetching data:', err);  
+      // If error, show the error message
       setError("Looks like we can't find the user");
       setUserData(null);
     } finally {
+      // Turn off the loading state after the request is complete
       setLoading(false);
     }
   };
@@ -36,11 +38,14 @@ const Search = () => {
         <button type="submit">Search</button>
       </form>
 
+      {/* Conditional Rendering: Show Loading when API is in progress */}
       {loading && <p>Loading...</p>}
 
-      {error && <p>{error}</p>} {/* Display the error message here */}
+      {/* Conditional Rendering: Show error message if there's an error */}
+      {error && <p>{error}</p>}
 
-      {userData && (
+      {/* Conditional Rendering: Show user data when successfully fetched */}
+      {userData && !loading && !error && (
         <div>
           <img src={userData.avatar_url} alt={userData.login} />
           <h2>{userData.login}</h2>
