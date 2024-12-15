@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import fetchUserData from '../services/githubService';
 
 const Search = () => {
-  const [username, setUsername] = useState(''); // Input state for GitHub username
-  const [userData, setUserData] = useState(null); // Holds fetched user data
-  const [loading, setLoading] = useState(false); // Indicates if the API call is in progress
-  const [error, setError] = useState(''); // Holds error message if any
+  const [username, setUsername] = useState(''); // Input for username
+  const [userData, setUserData] = useState(null); // Holds user data
+  const [loading, setLoading] = useState(false); // Tracks loading state
+  const [error, setError] = useState(''); // Holds error message
 
   const handleSearch = async (e) => {
-    e.preventDefault(); // Prevent page reload on form submission
-    setLoading(true); // Set loading state to true
-    setError(''); // Reset error state
+    e.preventDefault(); // Prevent form submission default behavior
+    setLoading(true); // Indicate loading state
+    setError(''); // Clear any previous error messages
     setUserData(null); // Clear previous user data
 
     try {
-      const data = await fetchUserData(username); // Fetch data using API service
-      setUserData(data); // Store fetched data in state
+      const data = await fetchUserData(username); // Call GitHub API service
+      setUserData(data); // Store data if successful
     } catch (err) {
-      setError("Looks like we can't find the user."); // Set error message if user not found or API fails
+      setError("Looks like we can't find the user."); // Set error message
     } finally {
-      setLoading(false); // Set loading state to false after the API call
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -33,20 +33,23 @@ const Search = () => {
           onChange={(e) => setUsername(e.target.value)}
           className="border p-2 rounded"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+        <button
+          type="submit"
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
           Search
         </button>
       </form>
-      {loading && <p>Loading...</p>} {/* Loading message */}
-      {error && <p className="text-red-500">{error}</p>} {/* Error message */}
+      {loading && <p>Loading...</p>} {/* Show while loading */}
+      {error && <p className="text-red-500">{error}</p>} {/* Display error */}
       {userData && (
         <div className="mt-4 border p-4 rounded shadow">
           <img
             src={userData.avatar_url}
-            alt={userData.login} // Added login field for alt attribute
+            alt={userData.login}
             className="w-20 h-20 rounded-full"
           />
-          <h3 className="text-lg font-bold">{userData.name || userData.login}</h3> {/* Fallback to login if name is null */}
+          <h3 className="text-lg font-bold">{userData.name || userData.login}</h3>
           <a
             href={userData.html_url}
             target="_blank"
