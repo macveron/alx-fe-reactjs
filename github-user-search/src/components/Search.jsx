@@ -17,7 +17,7 @@ const Search = () => {
       const response = await axios.get(`https://api.github.com/users/${username}`);
       setUserData(response.data);
     } catch (err) {
-     setError("Looks like we can't find the user");
+     setError ("Looks like we cant find the user");
       setUserData(null);
     } finally {
       // Turn off the loading state after the request is complete
